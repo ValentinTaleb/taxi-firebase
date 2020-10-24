@@ -1,0 +1,7 @@
+cd "/Users/valentin/Developer/Firebase/taxi"
+
+firebase use taxi--prod
+firebase use taxi--dev
+
+firebase deploy --only functions
+firebase deploy --only functions:functionName
