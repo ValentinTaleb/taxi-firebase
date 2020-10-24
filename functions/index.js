@@ -11,6 +11,8 @@ exports.ridesAutoExpire = functions.pubsub.schedule('every 1 minutes').onRun((co
         .firestore()
         .collection("rides")
         .where('autoExpiredTimestamp', '==', null)
+        .where('cancelledByPassengerTimestamp', '==', null)
+        .where('driverId', '==', null)
         .get()
         .then(ridesSnapshot => {
             ridesSnapshot.forEach(rideSnapshot => {
