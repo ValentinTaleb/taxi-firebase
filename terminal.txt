@@ -1,5 +1,7 @@
 cd "/Users/valentin/Developer/Firebase/taxi"
 
+firebase projects:list
+
 firebase use taxi--prod
 firebase use taxi--dev
 
