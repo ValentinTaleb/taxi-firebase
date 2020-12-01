@@ -6,7 +6,7 @@ admin.initializeApp();
  * Trigger: Automatic every 1 minutes
  * Set rides created more than 5 minutes ago as 'expired'
  */
-exports.ridesAutoExpire = functions.pubsub.schedule('every 1 minutes').onRun((context) => {
+exports.ridesAutoExpire = functions.region('europe-west1').pubsub.schedule('every 1 minutes').onRun((context) => {
     const now = Date.now()
     const asyncJobs = []
 
@@ -48,7 +48,7 @@ function setRideExpired(rideId) {
  * Trigger: A new ride request has been created by a passenger
  * Send a Cloud Message to all drivers
  */
-exports.rideCreated = functions.firestore
+exports.rideCreated = functions.region('europe-west1').firestore
   .document('rides/{rideId}')
   .onCreate((snapshot, context) => {
     let ride = snapshot.data()
@@ -103,7 +103,7 @@ function sendFCMToDriver(driver, ride) {
  * Trigger: A driver has been created
  * Set the driver as not verified
  */
-exports.driverCreated = functions.firestore
+exports.driverCreated = functions.region('europe-west1').firestore
    .document('drivers/{driverId}')
    .onCreate((snapshot, context) => {
      let driver = snapshot.data()
